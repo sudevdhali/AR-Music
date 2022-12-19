@@ -50,57 +50,31 @@
 			src: ['./audio/piano.mp3']
 		});
 
+		var audioMap = {
+			"guitar-marker": guitar,
+			"drums-marker": drums,
+			"mic-marker": mic,
+			"piano-marker": piano,
+		}
+
 		drums.play();
 		guitar.play();
 		mic.play();
 		piano.play();
 
-		// function playGuitar() {
-		// 	guitar.play();
-		// }
-		// function pauseGuitar() {
-		// 	guitar.pause();
-		// }
-		// function stopGuitar() {
-		// 	guitar.stop();
-		// }
-		// function muteGuitar() {
-		// 	guitar.mute(true);
-		// }
-		// function unmuteGuitar() {
-		// 	guitar.mute(false);
-		// }
-
 		window.onload = function () {
-			const drumsMarker = document.getElementById('drums-marker');
-			const guitarMarker = document.getElementById('guitar-marker');
-			const micMarker = document.getElementById('mic-marker');
-			const pianoMarker = document.getElementById('piano-marker');
+			var arMarkers = document.getElementsByClassName("ar-marker");
 
-			drumsMarker.addEventListener('markerFound', function() {
-				drums.mute(false);
-			});
-			drumsMarker.addEventListener('markerLost', function() {
-				drums.mute(true);
-			});
-			guitarMarker.addEventListener('markerFound', function() {
-				guitar.mute(false);
-			});
-			guitarMarker.addEventListener('markerLost', function() {
-				guitar.mute(true);
-			});
-			micMarker.addEventListener('markerFound', function() {
-				mic.mute(false);
-			});
-			micMarker.addEventListener('markerLost', function() {
-				mic.mute(true);
-			});
-			pianoMarker.addEventListener('markerFound', function() {
-				piano.mute(false);
-			});
-			pianoMarker.addEventListener('markerLost', function() {
-				piano.mute(true);
-			});
+			Array.from(arMarkers).forEach(function(arMarker) {
+				arMarker.addEventListener('markerFound', function(event) {
+					console.log(event.target.id);
+					audioMap[event.target.id].mute(false);
+				});
+				arMarker.addEventListener('markerLost', function(event) {
+					console.log(event.target.id);
+					audioMap[event.target.id].mute(true);
+				});
+		    });
 		}
 	</script>
 </body>
